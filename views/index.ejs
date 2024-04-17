@@ -12,7 +12,14 @@
 	</head>
 	<body>
 		<input type="text" onchange="changeShit(event)" />
-		<table></table>
+		<table>
+			<% for(let i=0;i<data.length;i++){ %>
+				<tr>
+					<td><%=data[i].Data%></td>
+					<td><button onclick="deleteShit(event)">delete</button></td>
+				</tr>
+			<% } %>
+		</table>
 		<script>
 			function changeShit(e) {
 				const value = $(e.target).val();
@@ -26,9 +33,14 @@
 						value +
 						'</td><td><button onclick="deleteShit(event)">delete</button></td></tr>'
 				);
+				$(e.target).val("");
 			}
 			function deleteShit(e) {
-				const value = $(e.target).val();
+				const value = $(e.target).closest("tr").find("td").eq(0).text();
+				$.ajax({
+					url: "http://localhost:3000/" + value,
+					method: "DELETE",
+				});
 				$(e.target).closest("tr").remove();
 			}
 		</script>
