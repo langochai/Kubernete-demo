@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Bruh</title>
+		<script
+			src="https://code.jquery.com/jquery-3.7.1.min.js"
+			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			crossorigin="anonymous"
+		></script>
+	</head>
+	<body>
+		<input type="text" onchange="changeShit(event)" />
+		<table></table>
+		<script>
+			function changeShit(e) {
+				const value = $(e.target).val();
+				$.ajax({
+					url: "http://localhost:3000/",
+					method: "POST",
+					data: { value },
+				});
+				$("table").append(
+					"<tr><td>" +
+						value +
+						'</td><td><button onclick="deleteShit(event)">delete</button></td></tr>'
+				);
+			}
+			function deleteShit(e) {
+				const value = $(e.target).val();
+				$(e.target).closest("tr").remove();
+			}
+		</script>
+	</body>
+</html>
